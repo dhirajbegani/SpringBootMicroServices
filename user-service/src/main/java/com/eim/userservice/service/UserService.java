@@ -30,7 +30,7 @@ public class UserService {
         ResponseTemplateVO responseTemplateVO = new ResponseTemplateVO();
 
         UserEntity user = userRepository.getUserByUserId(userId);
-        Department department = restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId() , Department.class);
+        Department department = restTemplate.getForObject("http://API-GATEWAY/departments/" + user.getDepartmentId() , Department.class);
 
         responseTemplateVO.setUser(user);
         responseTemplateVO.setDepartment(department);

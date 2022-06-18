@@ -5,6 +5,7 @@ import com.eim.userservice.entity.UserEntity;
 import com.eim.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

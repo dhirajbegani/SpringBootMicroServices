@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: APT-GATEWAY
+    name: API-GATEWAY
   cloud:
     gateway:
       routes:
@@ -11,10 +11,20 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userCircuitBreaker
+                fallbackUri: forward:/fallback/userServiceFallback
         - id: DEPARTMENT-SERVICE
           uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/departments/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: departmentCircuitBreaker
+                fallbackUri: forward:/fallback/departmentServiceFallback
 
 eureka:
   client:
@@ -24,3 +34,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
